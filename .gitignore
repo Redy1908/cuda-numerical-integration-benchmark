@@ -1,0 +1,15 @@
+.venv
+
+.clang-format
+
+bin/*
+
+!bin/.gitkeep 
+
+plots/*
+
+!plots/.gitkeep 
+
+results/*
+
+!results/.gitkeep 
