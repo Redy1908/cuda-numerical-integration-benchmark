@@ -51,8 +51,8 @@ void execute_benchmarks(ProblemsParams* prob_params, ImplementationsParams* impl
       case REDUCTION_SHARED_MEMORY:
         trap_host_reduction_shared_memory(a, b, n, h_result, d_result, num_blocks, threads_per_block);
         break;
-      case REDUCTION_SHARED_MEMORY_WARP_SHUFFLE:
-        trap_host_shared_memory_warp_shuffle_reduction(a, b, n, h_result, d_result, num_blocks, threads_per_block);
+      case REDUCTION_WARP_SHUFFLE:
+        trap_host_warp_shuffle_reduction(a, b, n, h_result, d_result, num_blocks, threads_per_block);
         break;
       default:
         break;
@@ -120,7 +120,7 @@ int main() {
     REDUCTION_GLOBAL_MEMORY,
     REDUCTION_UNIFIED_MEMORY,
     REDUCTION_SHARED_MEMORY,
-    REDUCTION_SHARED_MEMORY_WARP_SHUFFLE,
+    REDUCTION_WARP_SHUFFLE,
   };
   int num_implementations = sizeof(implementations_to_test) / sizeof(implementations_to_test[0]);
 

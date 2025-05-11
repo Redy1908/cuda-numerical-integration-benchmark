@@ -36,7 +36,7 @@ typedef enum {
     REDUCTION_GLOBAL_MEMORY,
     REDUCTION_UNIFIED_MEMORY,
     REDUCTION_SHARED_MEMORY,
-    REDUCTION_SHARED_MEMORY_WARP_SHUFFLE
+    REDUCTION_WARP_SHUFFLE
 }TrapImplementation;
 
 typedef struct {
@@ -64,8 +64,8 @@ double trap_host_reduction_unified_memory(double a, double b, int n, double* h_r
 __global__ void trap_kernel_shared_memory_reduction(double a, double h, int n, double* d_result);
 double trap_host_reduction_shared_memory(double a, double b, int n, double* h_result, double* d_result, int num_blocks, int threads_per_block);
 
-__global__ void trap_kernel_shared_memory_warp_shuffle_reduction(double a, double h, int n, double* d_result);
-double trap_host_shared_memory_warp_shuffle_reduction(double a, double b, int n, double* h_result, double* d_result, int num_blocks, int threads_per_block);
+__global__ void trap_kernel_warp_shuffle_reduction(double a, double h, int n, double* d_result);
+double trap_host_warp_shuffle_reduction(double a, double b, int n, double* h_result, double* d_result, int num_blocks, int threads_per_block);
 
 void set_active_function(FunctionChoice choice); 
 const char* get_method_name(TrapImplementation method);

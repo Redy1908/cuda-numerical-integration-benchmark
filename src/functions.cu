@@ -186,7 +186,7 @@ double trap_host_reduction_shared_memory(double a, double b, int n, double* h_re
   return *h_result;
 }
 
-__global__ void trap_kernel_shared_memory_warp_shuffle_reduction(double a, double h, int n, double* d_result) {
+__global__ void trap_kernel_warp_shuffle_reduction(double a, double h, int n, double* d_result) {
     int id_global = blockDim.x * blockIdx.x + threadIdx.x;
     int total_threads_global = gridDim.x * blockDim.x;
     double thread_local_sum = 0.0;
@@ -206,13 +206,13 @@ __global__ void trap_kernel_shared_memory_warp_shuffle_reduction(double a, doubl
     }
 }
 
-double trap_host_shared_memory_warp_shuffle_reduction(double a, double b, int n, double* h_result, double* d_result, int num_blocks, int threads_per_block) {
+double trap_host_warp_shuffle_reduction(double a, double b, int n, double* h_result, double* d_result, int num_blocks, int threads_per_block) {
     double h = (b - a) / n;
     *h_result = 0.5 * (f(a) + f(b));
 
     cudaMemset(d_result, 0, sizeof(double));
 
-    trap_kernel_shared_memory_warp_shuffle_reduction<<<num_blocks, threads_per_block>>>(a, h, n, d_result);
+    trap_kernel_warp_shuffle_reduction<<<num_blocks, threads_per_block>>>(a, h, n, d_result);
     cudaDeviceSynchronize();
 
     double kernel_sum_result;
@@ -236,8 +236,8 @@ const char* get_method_name(TrapImplementation method) {
     return "Reduction(Host Array Unified Memory)";
   case REDUCTION_SHARED_MEMORY:
     return "Reduction(Shared Memory - Tree Structured Sum)";
-  case REDUCTION_SHARED_MEMORY_WARP_SHUFFLE:
-    return "Reduction(Shared Memory - Warp Shuffle - Tree Structured Sum)";
+  case REDUCTION_WARP_SHUFFLE:
+    return "Reduction(Warp Shuffle - Tree Structured Sum)";
   default:
     return "UnknownMethod";
   }
