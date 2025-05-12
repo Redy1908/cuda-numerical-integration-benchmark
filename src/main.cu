@@ -105,9 +105,7 @@ int main() {
   int n = 1000000;
   get_integration_parameters(&a, &b, &n);
 
-  FunctionChoice selected_function = FUNC_DEFAULT;
-  get_function_choice(&selected_function);
-  set_active_function(selected_function);
+  select_integration_function();
 
   // -----------------------------------------------------------------------------------------
   // Implementation params definition

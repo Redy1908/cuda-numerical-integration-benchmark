@@ -7,10 +7,8 @@
 extern "C" {
 #endif
 
-int get_positive_integer_input(const char* prompt);
-int parse_double_or_constant(const char* prompt, double* value);
-void get_integration_parameters(double* a, double* b, int* n);
-void get_function_choice(FunctionChoice* choice_ptr);
+void get_integration_parameters(double *a_ptr, double *b_ptr, int *n_ptr);
+void select_integration_function();
 double get_cur_time();
 cudaDeviceProp check_GPU_and_architecture();
 
