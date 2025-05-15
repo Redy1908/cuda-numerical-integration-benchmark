@@ -51,6 +51,17 @@ if [ $? -ne 0 ]; then
 fi
 echo -e "Compilation successful.\n"
 
+if ! command -v python3 &> /dev/null
+then
+    echo "Python 3 could not be found."
+    echo "Python 3 is required by this script to execute 'plot.py', which generates graphical plots of the benchmark results."
+    echo "Please install Python 3 to generate plots."
+    echo "You can typically install it using your system's package manager, e.g.:"
+    echo "sudo apt update && sudo apt install python3 python3-pip"
+    echo "Then, install the required packages using: pip install -r ../requirements.txt"
+    exit 1
+fi
+
 echo "Executing application..."
 ../bin/main_app
 
